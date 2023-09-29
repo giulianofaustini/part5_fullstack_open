@@ -3,6 +3,8 @@ import Blog from "./components/Blog";
 import blogService from "./services/blogs";
 import loginService from "./services/login";
 import AddBlog from "./components/AddBlog";
+import DisplayMessageGreen from "./components/DisplayMessageGreen";
+import DisplayRedMessage from "./components/DisplayRedMessage";
 
 const App = () => {
   const [blogs, setBlogs] = useState([]);
@@ -10,7 +12,9 @@ const App = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [user, setUser] = useState(null);
-  
+  const [greenMessage, setGreenMessage] = useState("");
+  const [redMessage, setRedMessage] = useState("");
+
   useEffect(() => {
     if (user) {
       blogService.getAll().then((blogs) => setBlogs(blogs));
@@ -25,6 +29,20 @@ const App = () => {
     }
   }, []);
 
+  const handleGreenMessage = (message) => {
+    setGreenMessage(message);
+    setTimeout(() => {
+      setGreenMessage("");
+    }, 1000);
+  };
+
+  const handleRedMessage = (message) => {
+    setRedMessage(message);
+    setTimeout(() => {
+      setRedMessage("");
+    }, 1000);
+  };
+
   const handleLogin = async (event) => {
     event.preventDefault();
     try {
@@ -32,12 +50,13 @@ const App = () => {
       window.localStorage.setItem("loggedBlogsAppUser", JSON.stringify(user));
       blogService.setToken(user.token);
       setUser(user);
+    } catch (error) {
+      handleRedMessage(`The username or password you inserted is not valid.`);
       setUsername("");
       setPassword("");
-    } catch (error) {
-      console.log("wrong password or username");
     }
   };
+  
 
   const handleLogout = (event) => {
     event.preventDefault();
@@ -47,13 +66,12 @@ const App = () => {
     setPassword("");
   };
 
-  
-
   if (user === null) {
     return (
       <div>
         <h2>Log into the blog application</h2>
-        <form onSubmit={handleLogin}>
+        <DisplayRedMessage message={redMessage} />
+        <form onSubmit={handleLogin} >
           <div>
             username:
             <input
@@ -83,7 +101,11 @@ const App = () => {
         <button onClick={handleLogout}>logout</button>
         <div>
           <h2>Add your favorite blog and share it with other users</h2>
-          <AddBlog setBlogs={setBlogs} />
+          <AddBlog
+            setBlogs={setBlogs}
+            handleGreenMessage={handleGreenMessage}
+          />
+          <DisplayMessageGreen message={greenMessage} />
         </div>
       </div>
       <div>

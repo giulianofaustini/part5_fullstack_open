@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import blogService from "../services/blogs";
 
-const AddBlog = ({ blogs, setBlogs }) => {
+
+const AddBlog = ({ blogs, setBlogs, handleGreenMessage }) => {
   const [newBlog, setNewBlog] = useState({ title: "", author: "", url: "" });
 
   const handleBlogChange = (event) => {
@@ -11,8 +12,10 @@ const AddBlog = ({ blogs, setBlogs }) => {
   const handleCreatedBlog = async (event) => {
     event.preventDefault();
 
+   
+
     try {
-      console.log("is there a response to blogs?", blogs);
+      // console.log("is there a response to blogs?", blogs);
       const user = JSON.parse(localStorage.getItem("loggedBlogsAppUser"));
 
       console.log("Is there a user?", user, "and the token is", user.token);
@@ -22,8 +25,13 @@ const AddBlog = ({ blogs, setBlogs }) => {
       }
 
       const createdBlog = await blogService.create(newBlog);
+      console.log('the createdBlog is this:', createdBlog)
 
       setBlogs((prevBlogs) => [...prevBlogs, createdBlog]);
+     
+      const message = `A new blog ${createdBlog.title} by ${createdBlog.author} has been added to the list.`;
+      console.log("Message to display:", message);
+      handleGreenMessage(message);
 
       setNewBlog({ title: "", author: "", url: "" });
     } catch (error) {
