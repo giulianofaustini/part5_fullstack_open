@@ -1,12 +1,38 @@
-import RemoveBlog from "./RemoveBlog"
+// import RemoveBlog from "./RemoveBlog"
 
-const Blog = ({ blog, setBlogs, handleRedMessage }) => (
-  <div>
-    
-    Blog title: {blog.title}. Author: {blog.author} likes:{blog.likes}
-    <RemoveBlog blog={blog}  setBlogs={setBlogs} handleRedMessage={handleRedMessage}/>
-   
-  </div>  
-)
+import { useState } from "react";
 
-export default Blog
+const Blog = ({ blog, setBlogs, handleRedMessage }) => {
+
+  const blogStyle = {
+    paddingTop: 10,
+    paddingLeft: 2,
+    border: 'solid',
+    borderWidth: 1,
+    marginBottom: 5,
+    borderRadius: 3,
+  }
+  const [see, setSee] = useState(false);
+
+  const hideBlogInfo = { display: see ? "none" : "" };
+  const showBlogInfo = { display: see ? "" : "none" };
+
+  return (
+    < div style={blogStyle}>
+
+      <div style={hideBlogInfo}>
+        <p><strong>Title:</strong> {blog.title}.</p>
+        <button onClick={() => setSee(true)} style={{ backgroundColor: 'green', color: 'whitesmoke' }}>view info</button>
+      </div>
+      <div style={showBlogInfo}>
+        <p><strong>Blog title:</strong> {blog.title}.</p>
+        <p><strong>Author:</strong> {blog.author}</p>
+        <p><strong>Likes:</strong> {blog.likes}</p>
+        {/* <RemoveBlog blog={blog}  setBlogs={setBlogs} handleRedMessage={handleRedMessage}/> */}
+        <button onClick={() => setSee(false)} style={{ backgroundColor: 'red', color: 'whitesmoke' }}>hide info</button>
+      </div>
+    </div>
+  );
+};
+
+export default Blog;
