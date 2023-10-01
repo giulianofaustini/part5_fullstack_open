@@ -5,6 +5,7 @@ import loginService from "./services/login";
 import AddBlog from "./components/AddBlog";
 import DisplayMessageGreen from "./components/DisplayMessageGreen";
 import DisplayRedMessage from "./components/DisplayRedMessage";
+import Togglable from "./components/Togglable";
 
 const App = () => {
   const [blogs, setBlogs] = useState([]);
@@ -56,7 +57,6 @@ const App = () => {
       setPassword("");
     }
   };
-  
 
   const handleLogout = (event) => {
     event.preventDefault();
@@ -71,7 +71,7 @@ const App = () => {
       <div>
         <h2>Log into the blog application</h2>
         <DisplayRedMessage message={redMessage} />
-        <form onSubmit={handleLogin} >
+        <form onSubmit={handleLogin}>
           <div>
             username:
             <input
@@ -101,11 +101,15 @@ const App = () => {
         <button onClick={handleLogout}>logout</button>
         <div>
           <h2>Add your favorite blog and share it with other users</h2>
+          <Togglable buttonLabel='Click for a New Blog Form' >
           <AddBlog
             setBlogs={setBlogs}
             handleGreenMessage={handleGreenMessage}
+            handleRedMessage={handleRedMessage}
           />
+          </Togglable>
           <DisplayMessageGreen message={greenMessage} />
+          <DisplayRedMessage message={redMessage} />
         </div>
       </div>
       <div>
