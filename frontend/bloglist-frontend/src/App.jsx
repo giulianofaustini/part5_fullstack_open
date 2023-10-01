@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import Blog from "./components/Blog";
+import { Blog } from "./components/Blog";
 import blogService from "./services/blogs";
 import loginService from "./services/login";
 import AddBlog from "./components/AddBlog";
@@ -101,12 +101,12 @@ const App = () => {
         <button onClick={handleLogout}>logout</button>
         <div>
           <h2>Add your favorite blog and share it with other users</h2>
-          <Togglable buttonLabel='Click for a New Blog Form' >
-          <AddBlog
-            setBlogs={setBlogs}
-            handleGreenMessage={handleGreenMessage}
-            handleRedMessage={handleRedMessage}
-          />
+          <Togglable buttonLabel="Click for a New Blog Form">
+            <AddBlog
+              setBlogs={setBlogs}
+              handleGreenMessage={handleGreenMessage}
+              handleRedMessage={handleRedMessage}
+            />
           </Togglable>
           <DisplayMessageGreen message={greenMessage} />
           <DisplayRedMessage message={redMessage} />
@@ -114,9 +114,10 @@ const App = () => {
       </div>
       <div>
         <h2>blogs</h2>
-        {blogs.map((blog) => (
-          <Blog key={blog.id} blog={blog} />
-        ))}
+        {blogs.map((blog) => {
+         // console.log(blog)
+          return <Blog key={blog.id} blog={blog} />;
+        })}
       </div>
     </>
   );
