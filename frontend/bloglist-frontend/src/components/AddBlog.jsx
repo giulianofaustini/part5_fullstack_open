@@ -6,7 +6,6 @@ const AddBlog = ({ setBlogs, handleGreenMessage, user }) => {
     const [newBlog, setNewBlog] = useState({ title: "", author: "", url: "" });
   
     useEffect(() => {
-      // Check if there's a user token when the component mounts (on page load or refresh).
       if (user && user.token) {
         blogService.setToken(user.token);
       }

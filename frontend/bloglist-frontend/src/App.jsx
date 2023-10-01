@@ -34,14 +34,14 @@ const App = () => {
     setGreenMessage(message);
     setTimeout(() => {
       setGreenMessage("");
-    }, 1000);
+    }, 3000);
   };
 
   const handleRedMessage = (message) => {
     setRedMessage(message);
     setTimeout(() => {
       setRedMessage("");
-    }, 1000);
+    }, 3000);
   };
 
   const handleLogin = async (event) => {
