@@ -29,8 +29,8 @@ const deleteBlog = async (blogId) => {
   return response.data;
 };
 
-const update = (id, blog) => {
-  const request = axios.put(`${baseUrl}/${id}`, blog);
+const update = (id, newBlog) => {
+  const request = axios.put(`${baseUrl}/${id}`, newBlog);
   return request.then((response) => response.data);
 };
 

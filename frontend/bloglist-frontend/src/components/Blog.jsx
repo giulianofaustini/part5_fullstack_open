@@ -1,8 +1,9 @@
 // import RemoveBlog from "./RemoveBlog"
 
 import React, { useState } from "react";
+import blogService from '../services/blogs'
 
-const Blog = ({ blog }) => {
+const Blog = ({ blog, setBlogs }) => {
   const blogStyle = {
     paddingTop: 10,
     paddingLeft: 2,
@@ -15,6 +16,20 @@ const Blog = ({ blog }) => {
 
   const hideBlogInfo = { display: see ? "none" : "" };
   const showBlogInfo = { display: see ? "" : "none" };
+
+
+
+  const handleLike = async () => {
+try {
+  const updatedBlog = { ...blog, likes: blog.likes + 1 }
+  await blogService.update(blog.id, updatedBlog)
+  const updatedBlogs = await blogService.getAll(updatedBlog);
+    setBlogs(updatedBlogs);
+} catch (error) {
+  console.error("Error updating likes:", error);
+}
+
+  }
 
   return (
     <div style={blogStyle}>
@@ -39,7 +54,9 @@ const Blog = ({ blog }) => {
         <p>
           <strong>Likes:</strong> {blog.likes}
         </p>
-
+        <p>
+          <button onClick={handleLike}>like it</button>
+        </p>
         <p>
           <strong>Added by:</strong>
           {blog.user ? blog.user.name : "Unknown User"}
@@ -57,4 +74,4 @@ const Blog = ({ blog }) => {
   );
 };
 
-export  {Blog};
+export { Blog };

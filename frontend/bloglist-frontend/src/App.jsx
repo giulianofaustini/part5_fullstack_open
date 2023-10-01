@@ -116,7 +116,7 @@ const App = () => {
         <h2>blogs</h2>
         {blogs.map((blog) => {
          // console.log(blog)
-          return <Blog key={blog.id} blog={blog} />;
+          return <Blog key={blog.id} blog={blog} setBlogs={setBlogs} />;
         })}
       </div>
     </>
