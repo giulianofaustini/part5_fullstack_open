@@ -94,6 +94,8 @@ const App = () => {
     );
   }
 
+ 
+
   return (
     <>
       <div>{user.name} is logged in.</div>
@@ -114,10 +116,11 @@ const App = () => {
       </div>
       <div>
         <h2>blogs</h2>
-        {blogs.map((blog) => {
-         // console.log(blog)
+        {[...blogs]
+        .sort((a,b) => b.likes - a.likes)
+        .map((blog) => {
           return <Blog key={blog.id} blog={blog} setBlogs={setBlogs} />;
-        })}
+        } )}
       </div>
     </>
   );
