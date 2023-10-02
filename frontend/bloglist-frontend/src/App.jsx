@@ -17,9 +17,19 @@ const App = () => {
   const [redMessage, setRedMessage] = useState("");
 
   useEffect(() => {
-    if (user) {
-      blogService.getAll().then((blogs) => setBlogs(blogs));
-    }
+    const fetchBlogs = async () => {
+      if (user) {
+        try {
+          const blogs = await blogService.getAll();
+          setBlogs(blogs);
+        } catch (error) {
+          // Handle any errors here
+          console.error("Error fetching blogs:", error);
+        }
+      }
+    };
+  
+    fetchBlogs();
   }, [user]);
 
   useEffect(() => {
