@@ -87,7 +87,7 @@ const Blog = ({ blog, blogs, setBlogs, handleRedMessage, redMessage }) => {
           hide info
         </button>
         <p>
-          <button onClick={handleDelete}>
+          <button onClick={handleDelete} style={{ backgroundColor: "blue", color: "whitesmoke" }}>
             delete
           </button>
           </p>
