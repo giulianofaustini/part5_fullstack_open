@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Blog } from "./components/Blog";
 import blogService from "./services/blogs";
 import loginService from "./services/login";
@@ -9,7 +9,6 @@ import Togglable from "./components/Togglable";
 
 const App = () => {
   const [blogs, setBlogs] = useState([]);
-
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [user, setUser] = useState(null);
@@ -23,20 +22,20 @@ const App = () => {
           const blogs = await blogService.getAll();
           setBlogs(blogs);
         } catch (error) {
-          // Handle any errors here
           console.error("Error fetching blogs:", error);
         }
       }
     };
-  
+
     fetchBlogs();
   }, [user]);
 
   useEffect(() => {
-    const loggedUserJSON = window.localStorage.getItem("loggedBlogsAppUser");
+    const loggedUserJSON = window.sessionStorage.getItem("loggedBlogsAppUser");
     if (loggedUserJSON) {
       const user = JSON.parse(loggedUserJSON);
-      setUser(user);
+      setUser(user)
+      blogService.setToken(user.token);
     }
   }, []);
 
@@ -58,9 +57,11 @@ const App = () => {
     event.preventDefault();
     try {
       const user = await loginService.login({ username, password });
-      window.localStorage.setItem("loggedBlogsAppUser", JSON.stringify(user));
-      blogService.setToken(user.token);
+      const token = user.token;
+      window.sessionStorage.setItem("loggedBlogsAppToken", token);
+      window.sessionStorage.setItem("loggedBlogsAppUser", JSON.stringify(user));
       setUser(user);
+      blogService.setToken(token);
     } catch (error) {
       handleRedMessage(`The username or password you inserted is not valid.`);
       setUsername("");
@@ -70,7 +71,8 @@ const App = () => {
 
   const handleLogout = (event) => {
     event.preventDefault();
-    window.localStorage.removeItem("loggedBlogsAppUser");
+    window.sessionStorage.removeItem("loggedBlogsAppToken");
+    window.sessionStorage.removeItem("loggedBlogsAppUser");
     setUser(null);
     setUsername("");
     setPassword("");
@@ -104,8 +106,6 @@ const App = () => {
     );
   }
 
- 
-
   return (
     <>
       <div>{user.name} is logged in.</div>
@@ -127,10 +127,10 @@ const App = () => {
       <div>
         <h2>blogs</h2>
         {[...blogs]
-        .sort((a,b) => b.likes - a.likes)
-        .map((blog) => {
-          return <Blog key={blog.id} blog={blog} setBlogs={setBlogs} />;
-        } )}
+          .sort((a, b) => b.likes - a.likes)
+          .map((blog) => {
+            return <Blog key={blog.id} blog={blog} blogs={blogs} setBlogs={setBlogs} handleRedMessage={handleRedMessage} redMessage={redMessage} setRedMessage={setRedMessage}/>;
+          })}
       </div>
     </>
   );
