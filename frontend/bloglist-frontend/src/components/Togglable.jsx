@@ -22,7 +22,7 @@ export default function Togglable(props) {
   return (
     <div>
       <div style={hideWhenVisible}>
-        <button onClick={toggleVisibility}>{props.buttonLabel}</button>
+        <button  style={{ backgroundColor:'brown', color:'whitesmoke' }} onClick={toggleVisibility}>{props.buttonLabel}</button>
       </div>
       <div style={showWhenVisible}>
         {props.children}

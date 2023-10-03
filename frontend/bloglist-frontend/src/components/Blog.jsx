@@ -72,7 +72,7 @@ const Blog = ({ blog, blogs, setBlogs, handleRedMessage, redMessage }) => {
           <strong>Likes:</strong> {blog.likes}
         </p>
         <p>
-          <button onClick={handleLike}>like it</button>
+          <button style={{ borderRadius: '4px', backgroundColor:'whitesmoke', color: 'whitesmoke'  }} onClick={handleLike}>❤️</button>
         </p>
         <p>
           <strong>Added by:</strong>
