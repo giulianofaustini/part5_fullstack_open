@@ -85,12 +85,11 @@ const Blog = ({ blog, blogs, setBlogs, handleRedMessage, redMessage }) => {
           style={{ backgroundColor: 'red', color: 'whitesmoke' }}
         >
           hide info
-        </button>
-        <p>
-          <button onClick={handleDelete} style={{ backgroundColor: 'blue', color: 'whitesmoke' }}>
+        </button> {}
+        <button onClick={handleDelete} style={{ backgroundColor: 'blue', color: 'whitesmoke' }}>
             delete
-          </button>
-        </p>
+        </button>
+
         <DisplayRedMessage message={redMessage} />
       </div>
     </div>
