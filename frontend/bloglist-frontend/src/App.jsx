@@ -1,82 +1,82 @@
-import React, { useState, useEffect } from "react";
-import { Blog } from "./components/Blog";
-import blogService from "./services/blogs";
-import loginService from "./services/login";
-import AddBlog from "./components/AddBlog";
-import DisplayMessageGreen from "./components/DisplayMessageGreen";
-import DisplayRedMessage from "./components/DisplayRedMessage";
-import Togglable from "./components/Togglable";
+import React, { useState, useEffect } from 'react'
+import { Blog } from './components/Blog'
+import blogService from './services/blogs'
+import loginService from './services/login'
+import AddBlog from './components/AddBlog'
+import DisplayMessageGreen from './components/DisplayMessageGreen'
+import DisplayRedMessage from './components/DisplayRedMessage'
+import Togglable from './components/Togglable'
 
 const App = () => {
-  const [blogs, setBlogs] = useState([]);
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-  const [user, setUser] = useState(null);
-  const [greenMessage, setGreenMessage] = useState("");
-  const [redMessage, setRedMessage] = useState("");
+  const [blogs, setBlogs] = useState([])
+  const [username, setUsername] = useState('')
+  const [password, setPassword] = useState('')
+  const [user, setUser] = useState(null)
+  const [greenMessage, setGreenMessage] = useState('')
+  const [redMessage, setRedMessage] = useState('')
 
   useEffect(() => {
     const fetchBlogs = async () => {
       if (user) {
         try {
-          const blogs = await blogService.getAll();
-          setBlogs(blogs);
+          const blogs = await blogService.getAll()
+          setBlogs(blogs)
         } catch (error) {
-          console.error("Error fetching blogs:", error);
+          console.error('Error fetching blogs:', error)
         }
       }
-    };
+    }
 
-    fetchBlogs();
-  }, [user]);
+    fetchBlogs()
+  }, [user])
 
   useEffect(() => {
-    const loggedUserJSON = window.sessionStorage.getItem("loggedBlogsAppUser");
+    const loggedUserJSON = window.sessionStorage.getItem('loggedBlogsAppUser')
     if (loggedUserJSON) {
-      const user = JSON.parse(loggedUserJSON);
+      const user = JSON.parse(loggedUserJSON)
       setUser(user)
-      blogService.setToken(user.token);
+      blogService.setToken(user.token)
     }
-  }, []);
+  }, [])
 
   const handleGreenMessage = (message) => {
-    setGreenMessage(message);
+    setGreenMessage(message)
     setTimeout(() => {
-      setGreenMessage("");
-    }, 3000);
-  };
+      setGreenMessage('')
+    }, 3000)
+  }
 
   const handleRedMessage = (message) => {
-    setRedMessage(message);
+    setRedMessage(message)
     setTimeout(() => {
-      setRedMessage("");
-    }, 3000);
-  };
+      setRedMessage('')
+    }, 3000)
+  }
 
   const handleLogin = async (event) => {
-    event.preventDefault();
+    event.preventDefault()
     try {
-      const user = await loginService.login({ username, password });
-      const token = user.token;
-      window.sessionStorage.setItem("loggedBlogsAppToken", token);
-      window.sessionStorage.setItem("loggedBlogsAppUser", JSON.stringify(user));
-      setUser(user);
-      blogService.setToken(token);
+      const user = await loginService.login({ username, password })
+      const token = user.token
+      window.sessionStorage.setItem('loggedBlogsAppToken', token)
+      window.sessionStorage.setItem('loggedBlogsAppUser', JSON.stringify(user))
+      setUser(user)
+      blogService.setToken(token)
     } catch (error) {
-      handleRedMessage(`The username or password you inserted is not valid.`);
-      setUsername("");
-      setPassword("");
+      handleRedMessage('The username or password you inserted is not valid.')
+      setUsername('')
+      setPassword('')
     }
-  };
+  }
 
   const handleLogout = (event) => {
-    event.preventDefault();
-    window.sessionStorage.removeItem("loggedBlogsAppToken");
-    window.sessionStorage.removeItem("loggedBlogsAppUser");
-    setUser(null);
-    setUsername("");
-    setPassword("");
-  };
+    event.preventDefault()
+    window.sessionStorage.removeItem('loggedBlogsAppToken')
+    window.sessionStorage.removeItem('loggedBlogsAppUser')
+    setUser(null)
+    setUsername('')
+    setPassword('')
+  }
 
   if (user === null) {
     return (
@@ -103,7 +103,7 @@ const App = () => {
           </div>
         </form>
       </div>
-    );
+    )
   }
 
   return (
@@ -129,11 +129,11 @@ const App = () => {
         {[...blogs]
           .sort((a, b) => b.likes - a.likes)
           .map((blog) => {
-            return <Blog key={blog.id} blog={blog} blogs={blogs} setBlogs={setBlogs} handleRedMessage={handleRedMessage} redMessage={redMessage} setRedMessage={setRedMessage}/>;
+            return <Blog key={blog.id} blog={blog} blogs={blogs} setBlogs={setBlogs} handleRedMessage={handleRedMessage} redMessage={redMessage} setRedMessage={setRedMessage}/>
           })}
       </div>
     </>
-  );
-};
+  )
+}
 
-export default App;
+export default App
