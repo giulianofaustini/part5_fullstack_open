@@ -52,9 +52,9 @@ const Blog = ({ blog, blogs, setBlogs, handleRedMessage, redMessage }) => {
 
   return (
     <div style={blogStyle} className='blog'>
-      <div style={hideBlogInfo}>
+      <div style={hideBlogInfo} className="blog-info-hidden">
         <p>
-          <strong>Title:</strong> {blog.title}.
+          Title: {blog.title}.
         </p>
         <button
           onClick={() => setSee(true)}
@@ -63,15 +63,15 @@ const Blog = ({ blog, blogs, setBlogs, handleRedMessage, redMessage }) => {
           view info
         </button>
       </div>
-      <div style={showBlogInfo}>
+      <div style={showBlogInfo} className="blog-info-visible">
         <p>
-          <strong>Blog title:</strong> {blog.title}.
+          Blog title: {blog.title}.
         </p>
         <p>
-          <strong>Author:</strong> {blog.author}
+          Author: {blog.author}
         </p>
         <p>
-          <strong>Likes:</strong> {blog.likes}
+          Likes: {blog.likes}
         </p>
         <p>
           <button style={{ borderRadius: '4px', backgroundColor:'whitesmoke', color: 'whitesmoke'  }} onClick={handleLike}>❤️</button>
