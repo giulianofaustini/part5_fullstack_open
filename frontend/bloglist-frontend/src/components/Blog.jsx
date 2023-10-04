@@ -1,8 +1,10 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import blogService from '../services/blogs'
 import DisplayRedMessage from './DisplayRedMessage'
 
 const Blog = ({ blog, blogs, setBlogs, handleRedMessage, redMessage }) => {
+  const [see, setSee] = useState(false)
+
   const blogStyle = {
     paddingTop: 10,
     paddingLeft: 2,
@@ -11,7 +13,7 @@ const Blog = ({ blog, blogs, setBlogs, handleRedMessage, redMessage }) => {
     marginBottom: 5,
     borderRadius: 3,
   }
-  const [see, setSee] = useState(false)
+
 
   const hideBlogInfo = { display: see ? 'none' : '' }
   const showBlogInfo = { display: see ? '' : 'none' }

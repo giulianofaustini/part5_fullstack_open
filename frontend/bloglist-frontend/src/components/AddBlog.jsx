@@ -1,15 +1,10 @@
-import React, { useState, useEffect } from 'react'
+import { useState } from 'react'
 import blogService from '../services/blogs'
 
 
-const AddBlog = ({ setBlogs, handleGreenMessage, user }) => {
+const AddBlog = ({ setBlogs, handleGreenMessage }) => {
   const [newBlog, setNewBlog] = useState({ title: '', author: '', url: '' })
 
-  useEffect(() => {
-    if (user && user.token) {
-      blogService.setToken(user.token)
-    }
-  }, [user])
 
   const handleBlogChange = (event) => {
     setNewBlog({ ...newBlog, [event.target.name]: event.target.value })
