@@ -1,22 +1,14 @@
 import { useState } from 'react'
+import React  from 'react'
 import blogService from '../services/blogs'
 import DisplayRedMessage from './DisplayRedMessage'
 
 const Blog = ({ blog, blogs, setBlogs, handleRedMessage, redMessage }) => {
   const [see, setSee] = useState(false)
 
-  const blogStyle = {
-    paddingTop: 10,
-    paddingLeft: 2,
-    border: 'solid',
-    borderWidth: 1,
-    marginBottom: 5,
-    borderRadius: 3,
-  }
-
-
   const hideBlogInfo = { display: see ? 'none' : '' }
   const showBlogInfo = { display: see ? '' : 'none' }
+
 
   const handleLike = async () => {
     try {
@@ -49,6 +41,14 @@ const Blog = ({ blog, blogs, setBlogs, handleRedMessage, redMessage }) => {
     }
   }
 
+  const blogStyle = {
+    paddingTop: 10,
+    paddingLeft: 2,
+    border: 'solid',
+    borderWidth: 1,
+    marginBottom: 5,
+    borderRadius: 3,
+  }
 
   return (
     <div style={blogStyle} className='blog'>

@@ -1,19 +1,27 @@
 
-import '@testing-library/jest-dom'
 import { render, screen } from '@testing-library/react'
 import { Blog } from './Blog'
 
-test('renders content', () => {
+test('renders title and author but not URL or likes by default', () => {
   const blog = {
-    title: 'Component testing is done with react-testing-library',
-    author: 'true'
+    title: 'Test Blog',
+    author: 'Test Author',
+    url: 'http://example.com',
+    likes: 5,
   }
-
 
   render(<Blog blog={blog} />)
 
+  // Check that title and author are rendered
+  const titleElement = screen.getByText('Title:')
+  const authorElement = screen.getByText('Author: Test Author')
 
-  const element = screen.getByText('Component testing is done with react-testing-library')
-  expect(element).toBeDefined()
+  // Check that URL and likes are not rendered
+  const urlElement = screen.queryByText('URL:')
+  const likesElement = screen.queryByText('Likes:')
+
+  expect(titleElement).toBeInTheDocument()
+  expect(authorElement).toBeInTheDocument()
+  expect(urlElement).not.toBeInTheDocument()
+  expect(likesElement).not.toBeInTheDocument()
 })
-
