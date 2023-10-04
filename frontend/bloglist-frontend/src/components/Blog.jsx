@@ -49,7 +49,7 @@ const Blog = ({ blog, blogs, setBlogs, handleRedMessage, redMessage }) => {
 
 
   return (
-    <div style={blogStyle}>
+    <div style={blogStyle} className='blog'>
       <div style={hideBlogInfo}>
         <p>
           <strong>Title:</strong> {blog.title}.
