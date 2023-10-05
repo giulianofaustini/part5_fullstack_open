@@ -12,8 +12,11 @@ const Blog = ({ blog, blogs, setBlogs, handleRedMessage, redMessage }) => {
 
   const handleLike = async () => {
     try {
+      const user = JSON.parse(localStorage.getItem('loggedBlogsAppUser'))
+      const userToken = await user.token
       const updatedBlog = { ...blog, likes: blog.likes + 1 }
-      await blogService.update(blog.id, updatedBlog)
+      await blogService.update(blog.id, updatedBlog, userToken)
+      console.log('The user in the handle like function ', userToken)
       const updatedBlogs = await blogService.getAll(updatedBlog)
       setBlogs(updatedBlogs)
     } catch (error) {

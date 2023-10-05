@@ -31,30 +31,36 @@ const AddBlog = ({ setBlogs, handleGreenMessage }) => {
     <>
       <form onSubmit={handleCreatedBlog}>
         <div>
-          title:{' '}
+          <label htmlFor="title">Title: </label>
           <input
             type="text"
             name="title"
+            id="title"
             value={newBlog.title}
             onChange={handleBlogChange}
+            placeholder='write title'
           ></input>
         </div>
         <div>
-          author:{' '}
+          <label htmlFor="author">author: </label>
           <input
             type="text"
+            id="author"
             name="author"
             value={newBlog.author}
             onChange={handleBlogChange}
+            placeholder='write author'
           ></input>
         </div>
         <div>
-          url:{' '}
+          <label htmlFor="url">url: </label>
           <input
             type="text"
             name="url"
+            id="url"
             value={newBlog.url}
             onChange={handleBlogChange}
+            placeholder='write url'
           ></input>
         </div>
         <div>
