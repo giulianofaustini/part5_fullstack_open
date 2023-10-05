@@ -29,7 +29,7 @@ const AddBlog = ({ setBlogs, handleGreenMessage }) => {
 
   return (
     <>
-      <form onSubmit={handleCreatedBlog}>
+      <form onSubmit={handleCreatedBlog} data-testid="add-blog-form">
         <div>
           <label htmlFor="title">Title: </label>
           <input

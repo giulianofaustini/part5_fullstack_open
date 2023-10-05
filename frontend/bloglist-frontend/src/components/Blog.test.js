@@ -86,31 +86,5 @@ test('clicking the likes button test', async () => {
   })
 })
 
-describe('AddBlog Form', () => {
-  ('calls the event handler with the right details on form submission', async () => {
-    const mockSetBlogs = jest.fn()
-    const mockHandleGreenMessage = jest.fn()
 
-    render(<AddBlog setBlogs={mockSetBlogs} handleGreenMessage={mockHandleGreenMessage} />)
-
-    const input1 = screen.getByPlaceholderText('write title')
-    const input2 = screen.getByPlaceholderText('write author')
-    const input3 = screen.getByPlaceholderText('write url')
-    const sendButton = screen.getByText('create')
-
-    userEvent.type(input1, 'title')
-    userEvent.type(input2, 'author')
-    userEvent.type(input3, 'url')
-
-    userEvent.click(sendButton)
-
-    await waitFor(() => {
-      expect(mockSetBlogs).toHaveBeenCalled()
-      expect(mockSetBlogs.mock.calls).toHaveLength(1)
-      expect(mockSetBlogs.mock.calls[0][0].title).toBe('title')
-      expect(mockSetBlogs.mock.calls[0][0].author).toBe('author')
-      expect(mockSetBlogs.mock.calls[0][0].url).toBe('url')
-    })
-  })
-})
 
