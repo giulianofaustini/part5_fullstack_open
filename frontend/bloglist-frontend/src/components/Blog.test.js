@@ -54,3 +54,30 @@ test('clicking the button shows the view info details', async () => {
 
   expect(mockHandler.mock.calls).toHaveLength(1)
 })
+
+
+
+test('clicking the likes button test', async () => {
+  const blog = {
+    title: 'Test Blog Title',
+    author: 'Test Author',
+    likes: 0,
+  }
+
+  const { container } = render(<Blog blog={blog} />)
+
+  const findByClassName = (className) =>
+    container.querySelector(`.${className}`)
+
+  const likes = findByClassName('likesButton')
+
+  const mockHandler = jest.fn()
+
+  likes.onclick = mockHandler
+
+  const button = screen.getByText('❤️')
+  await userEvent.click(button)
+  await userEvent.click(button)
+
+  expect(mockHandler.mock.calls).toHaveLength(2)
+})
