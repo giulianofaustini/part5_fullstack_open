@@ -59,6 +59,7 @@ const Blog = ({ blog, blogs, setBlogs, handleRedMessage, redMessage }) => {
         <button
           onClick={() => setSee(true)}
           style={{ backgroundColor: 'green', color: 'whitesmoke' }}
+          className='viewInfoButton'
         >
           view info
         </button>
