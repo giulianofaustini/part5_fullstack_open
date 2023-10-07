@@ -29,7 +29,7 @@ const Blog = ({ blog, blogs, setBlogs, handleRedMessage, redMessage }) => {
     if (window.confirm(`Remove blog "${blog.title}" by ${blog.author}?`)) {
       try {
         const user = JSON.parse(localStorage.getItem('loggedBlogsAppUser'))
-        console.log('the user: ', user)
+        //console.log('the user: ', user)
 
         await blogService.deleteBlog(blog.id)
         const updatedBlogs = blogs.filter((b) => b.id !== blog.id)
