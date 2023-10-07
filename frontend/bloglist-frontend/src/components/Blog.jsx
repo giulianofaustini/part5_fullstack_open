@@ -93,7 +93,7 @@ const Blog = ({ blog, blogs, setBlogs, handleRedMessage, redMessage }) => {
         >
           hide info
         </button> {}
-        <button onClick={handleDelete} style={{ backgroundColor: 'blue', color: 'whitesmoke' }}>
+        <button data-cy="deleteBlog"   onClick={handleDelete} style={{ backgroundColor: 'blue', color: 'whitesmoke' }}>
             delete
         </button>
 

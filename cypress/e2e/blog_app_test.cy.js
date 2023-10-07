@@ -68,7 +68,9 @@ describe('Blog app', function() {
 
       cy.get('[data-cy="view info"]').click()
       cy.get('[data-cy="likeButton"]').click()
-     
+      cy.get('[ data-cy="deleteBlog"]').click()
+
+    
     })
 
   
