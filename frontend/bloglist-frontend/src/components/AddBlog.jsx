@@ -38,6 +38,7 @@ const AddBlog = ({ setBlogs, handleGreenMessage }) => {
             id="title"
             value={newBlog.title}
             onChange={handleBlogChange}
+            data-cy="write title"
             placeholder='write title'
           ></input>
         </div>
@@ -49,6 +50,7 @@ const AddBlog = ({ setBlogs, handleGreenMessage }) => {
             name="author"
             value={newBlog.author}
             onChange={handleBlogChange}
+            data-cy="write author"
             placeholder='write author'
           ></input>
         </div>
@@ -60,11 +62,12 @@ const AddBlog = ({ setBlogs, handleGreenMessage }) => {
             id="url"
             value={newBlog.url}
             onChange={handleBlogChange}
+            data-cy="write url"
             placeholder='write url'
           ></input>
         </div>
         <div>
-          <button type="submit">create</button>
+          <button data-cy="create" type="submit">create</button>
         </div>
       </form>
     </>
