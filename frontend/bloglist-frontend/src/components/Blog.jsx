@@ -63,6 +63,7 @@ const Blog = ({ blog, blogs, setBlogs, handleRedMessage, redMessage }) => {
           onClick={() => setSee(true)}
           style={{ backgroundColor: 'green', color: 'whitesmoke' }}
           className='viewInfoButton'
+          data-cy="view info"
         >
           view info
         </button>
@@ -78,7 +79,7 @@ const Blog = ({ blog, blogs, setBlogs, handleRedMessage, redMessage }) => {
           Likes: {blog.likes}
         </p>
         <p>
-          <button className='likesButton' style={{ borderRadius: '4px', backgroundColor:'whitesmoke', color: 'whitesmoke'  }} onClick={handleLike}>❤️</button>
+          <button data-cy="likeButton" className='likesButton' style={{ borderRadius: '4px', backgroundColor:'whitesmoke', color: 'whitesmoke'  }} onClick={handleLike}>❤️</button>
         </p>
         <p>
           <strong>Added by:</strong>
