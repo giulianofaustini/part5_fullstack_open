@@ -81,7 +81,7 @@ const App = () => {
     return (
       <div>
         <h2>Log into the blog application</h2>
-        <DisplayRedMessage message={redMessage} />
+        <DisplayRedMessage message={redMessage} data-cy="error"/>
         <form onSubmit={handleLogin}>
           <div>
             username:
@@ -89,6 +89,7 @@ const App = () => {
               type="text"
               value={username}
               onChange={({ target }) => setUsername(target.value)}
+              data-cy="username"
             ></input>
           </div>
           password:
@@ -96,9 +97,10 @@ const App = () => {
             type="password"
             value={password}
             onChange={({ target }) => setPassword(target.value)}
+            data-cy="password"
           ></input>
           <div>
-            <button type="submit">login</button>
+            <button  data-cy="login" type="submit">login</button>
           </div>
         </form>
       </div>
