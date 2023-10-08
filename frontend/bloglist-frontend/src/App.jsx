@@ -125,13 +125,25 @@ const App = () => {
           <DisplayRedMessage message={redMessage} />
         </div>
       </div>
-      <div>
+      <div >
         <h2>blogs</h2>
-        {[...blogs]
-          .sort((a, b) => b.likes - a.likes)
-          .map((blog) => {
-            return <Blog key={blog.id} blog={blog} blogs={blogs} setBlogs={setBlogs} handleRedMessage={handleRedMessage} redMessage={redMessage} setRedMessage={setRedMessage}/>
-          })}
+        <ul data-cy="blogs">
+          {[...blogs]
+            .sort((a, b) => b.likes - a.likes)
+            .map((blog) => (
+              <li key={blog.id}>
+                <Blog
+                  blog={blog}
+                  blogs={blogs}
+                  setBlogs={setBlogs}
+                  handleRedMessage={handleRedMessage}
+                  redMessage={redMessage}
+                  setRedMessage={setRedMessage}
+                />
+              </li>
+            ))}
+        </ul>
+
       </div>
     </>
   )

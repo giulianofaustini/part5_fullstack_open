@@ -9,6 +9,7 @@ const Blog = ({ blog, blogs, setBlogs, handleRedMessage, redMessage }) => {
   const hideBlogInfo = { display: see ? 'none' : '' }
   const showBlogInfo = { display: see ? '' : 'none' }
 
+  // const uniqueId = `blog-item-${blog.id}`
 
   const handleLike = async () => {
     try {
@@ -60,18 +61,18 @@ const Blog = ({ blog, blogs, setBlogs, handleRedMessage, redMessage }) => {
   // console.log(user.name)
   // console.log(blog)
 
-  const deleteButtonToShow = user && user.name && user.username === blog && blog.user.username && blog.user.name ?
+  const deleteButtonToShow = user &&  user.username && user.name !== blog.user.name ? null :
     (<button
       data-cy="deleteBlog"
       onClick={handleDelete}
       style={{ backgroundColor: 'blue', color: 'whitesmoke' }}
     >
     delete
-    </button>) : null
+    </button>)
 
 
   return (
-    <div style={blogStyle} className='blog'>
+    <div  style={blogStyle} className='blog' >
       <div style={hideBlogInfo} className="blog-info-hidden">
         <p>
           Title: {blog.title}.

@@ -83,7 +83,7 @@ describe('Blog app', function() {
   })
 
 
-  describe.only('When logged and then logged out and then logged in with a different user to check if delete button shows with the second user', function() {
+  describe('When logged and then logged out and then logged in with a different user to check if delete button shows with the second user', function() {
     
     it('A blog is created by GILIOLA and the she is logged out and MINA is logged in to check if delete is in there', function() {
       cy.get( '[data-cy="username"]').type('gili')
@@ -96,7 +96,7 @@ describe('Blog app', function() {
       cy.get('[data-cy="write url"]').type('www.giacomino.com')
 
       cy.get('[data-cy="create"]').click()
-      
+
       cy.contains('Title: here we go again with a new bog in testing.')
       cy.get('[data-cy="view info"]').click()
       cy.get('[data-cy="likeButton"]').click()
@@ -110,12 +110,60 @@ describe('Blog app', function() {
       cy.get('[data-cy="view info"]').click()
       cy.get('[data-cy="likeButton"]').click()
       cy.get('[ data-cy="deleteBlog"]').should('not.exist')
-    })
+    })   
+  })
+
+
+  describe.only('Create multiple blogs and arrange them in order of likes', function () {
+    beforeEach(function () {
+      cy.get('[data-cy="username"]').type('gili');
+      cy.get('[data-cy="password"]').type('salainen');
+      cy.get('[data-cy="login"]').click();
+    });
+  
+    it('Create blogs', function () {
+     
+      cy.get('[data-cy="clickForNewBlog"]').click();
+      cy.get('[data-cy="write title"]').type('The title with the second most likes');
+      cy.get('[data-cy="write author"]').type('Author 1');
+      cy.get('[data-cy="write url"]').type('www.example.com/blog1');
+      cy.get('[data-cy="create"]').click();
   
     
+      
+      cy.get('[data-cy="write title"]').type('The title with the most likes');
+      cy.get('[data-cy="write author"]').type('Author 2');
+      cy.get('[data-cy="write url"]').type('www.example.com/blog2');
+      cy.get('[data-cy="create"]').click();
+  
+
+      cy.get('[data-cy="blogs"]')
+        .contains('The title with the second most likes')
+        .parent()
+      
+      cy.get('[data-cy="view info"]').click();
+      cy.contains('❤️').click()
+      cy.contains('❤️').click()
+       
+  
      
-  })
+      cy.get('[data-cy="blogs"]')
+        .find('[data-cy="likeButton"]')
+        .should('have.length', 2) 
+        .eq(0) 
+        .click();
+  
+     
+      cy.get('li')
+      .should('have.length', 2)
+      .eq(0)
+      .find('view info').click()
+      .contains('Blog title: tile with the most likes.')
+      
+  });
+  
 
 
 })
 
+})
