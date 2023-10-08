@@ -61,5 +61,5 @@
   ],
   "plugins": [
     "react", "jest", "cypress"
-],
+]
 }

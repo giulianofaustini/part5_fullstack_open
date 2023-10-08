@@ -55,20 +55,20 @@ const Blog = ({ blog, blogs, setBlogs, handleRedMessage, redMessage }) => {
 
 
   const user = JSON.parse(localStorage.getItem('loggedBlogsAppUser'))
-  
+
   // console.log(user)
   // console.log(user.name)
   // console.log(blog)
 
-  const deleteButtonToShow = user.name !== blog.user.name ? null :
-  (<button
-    data-cy="deleteBlog"
-    onClick={handleDelete}
-    style={{ backgroundColor: 'blue', color: 'whitesmoke' }}
-  >
+  const deleteButtonToShow = user && user.name && user.username === blog && blog.user.username && blog.user.name ?
+    (<button
+      data-cy="deleteBlog"
+      onClick={handleDelete}
+      style={{ backgroundColor: 'blue', color: 'whitesmoke' }}
+    >
     delete
-  </button>)
-  
+    </button>) : null
+
 
   return (
     <div style={blogStyle} className='blog'>
@@ -112,7 +112,7 @@ const Blog = ({ blog, blogs, setBlogs, handleRedMessage, redMessage }) => {
         </button> {}
 
         {deleteButtonToShow}
-       
+
 
         <DisplayRedMessage message={redMessage} />
       </div>

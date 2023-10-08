@@ -15,7 +15,17 @@ describe('Blog app', function() {
 
 describe('Blog app', function() {
   beforeEach(function() {
+
+
     cy.request('POST', 'http://localhost:3003/api/testing/reset')
+
+    const user2 = {
+      name: 'Mina e Adamo',
+      username: 'mina',
+      password: 'salainen'
+    }
+    cy.request('POST', 'http://localhost:3003/api/users/', user2) 
+    
     const user = {
       name: 'Giliola Cinguetti',
       username: 'gili',
@@ -23,6 +33,7 @@ describe('Blog app', function() {
     }
     cy.request('POST', 'http://localhost:3003/api/users/', user) 
     cy.visit('http://localhost:5173')
+
   })
 
   it('Login form is shown', function() {
@@ -49,8 +60,9 @@ describe('Blog app', function() {
     })
   })
 
-  describe.only('When logged in', function() {
+  describe('When logged in', function() {
     beforeEach(function() {
+   
       cy.get( '[data-cy="username"]').type('gili')
       cy.get( '[data-cy="password"]').type('salainen')
       cy.get( '[data-cy="login"]').click()
@@ -63,18 +75,47 @@ describe('Blog app', function() {
       cy.get('[data-cy="write author"]').type('Giacomino')
       cy.get('[data-cy="write url"]').type('www.giacomino.com')
       cy.get('[data-cy="create"]').click()
-
       cy.contains('Title: here we go again with a new bog in testing.')
-
       cy.get('[data-cy="view info"]').click()
       cy.get('[data-cy="likeButton"]').click()
       cy.get('[ data-cy="deleteBlog"]').click()
-
-    
     })
-
-  
-
   })
+
+
+  describe.only('When logged and then logged out and then logged in with a different user to check if delete button shows with the second user', function() {
+    
+    it('A blog is created by GILIOLA and the she is logged out and MINA is logged in to check if delete is in there', function() {
+      cy.get( '[data-cy="username"]').type('gili')
+      cy.get( '[data-cy="password"]').type('salainen')
+      cy.get( '[data-cy="login"]').click()
+      cy.contains('Add your favorite blog and share it with other users')
+      cy.get('[data-cy="clickForNewBlog"]').click()
+      cy.get('[data-cy="write title"]').type('here we go again with a new bog in testing')
+      cy.get('[data-cy="write author"]').type('Giacomino')
+      cy.get('[data-cy="write url"]').type('www.giacomino.com')
+
+      cy.get('[data-cy="create"]').click()
+      
+      cy.contains('Title: here we go again with a new bog in testing.')
+      cy.get('[data-cy="view info"]').click()
+      cy.get('[data-cy="likeButton"]').click()
+      cy.get('[  data-cy="logOutButton" ]').click()
+
+      cy.get( '[data-cy="username"]').type('mina')
+      cy.get( '[data-cy="password"]').type('salainen')
+      cy.get( '[data-cy="login"]').click()
+      cy.contains('Add your favorite blog and share it with other users')
+      
+      cy.get('[data-cy="view info"]').click()
+      cy.get('[data-cy="likeButton"]').click()
+      cy.get('[ data-cy="deleteBlog"]').should('not.exist')
+    })
+  
+    
+     
+  })
+
+
 })
 

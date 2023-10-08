@@ -111,7 +111,7 @@ const App = () => {
     <>
       <div>{user.name} is logged in.</div>
       <div>
-        <button style={{ backgroundColor: 'black', color: 'whitesmoke' }} onClick={handleLogout}>logout</button>
+        <button data-cy="logOutButton"   style={{ backgroundColor: 'black', color: 'whitesmoke' }} onClick={handleLogout}>logout</button>
         <div>
           <h2>Add your favorite blog and share it with other users</h2>
           <Togglable buttonLabel="Click for a New Blog Form" >
