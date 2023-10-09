@@ -96,7 +96,7 @@ const Blog = ({ blog, blogs, setBlogs, handleRedMessage, redMessage , user }) =>
           Likes: {blog.likes}
         </p>
         <p>
-          <button data-cy="likeButton" className='likesButton' style={{ borderRadius: '4px', backgroundColor:'whitesmoke', color: 'whitesmoke'  }} onClick={handleLike}>❤️</button>
+          <button data-cy="likeButton" className='likesButton' style={{ borderRadius: '4px', backgroundColor:'whitesmoke', color: 'black'  }} onClick={handleLike}>like</button>
         </p>
         <p>
           <strong>Added by:</strong>

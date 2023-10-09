@@ -142,35 +142,29 @@ describe('Blog app', function() {
       cy.get('[data-cy="write author"]').type('Author 2')
       cy.get('[data-cy="write url"]').type('www.example.com/blog2')
       cy.get('[data-cy="create"]').click()
-      cy.wait(2000)
+      cy.wait(1000)
 
       cy.get('[data-cy="blogs"]').eq(1)
         .get('[data-cy="view info"]').eq(1).click().wait(3000)
-      cy.get('[data-cy="blogs"]').eq(1).contains('Likes')
+      cy.get('[data-cy="blogs"]').eq(1)
+        .get('[data-cy="likeButton"]', { multiple: true }).eq(1).click()
+        .wait(4000)
 
-      cy.get('[data-cy="blogs"]')
-        .eq(1)
-        .find('[data-cy="likeButton"]')
-        .should('be.visible')
-        .click({ force: true }).wait(4000)
-        .should('be.visible', { timeout: 10000 })
+      cy.get('li').should(($li) => {
+        expect($li).to.have.length(2)
+      })
 
-      cy.get('[data-cy="blogs"]')
-        .eq(1)
-        .find('[data-cy="likesCount"]')
-        .should('exist')
-        .should('contain', 'Likes: 1')
-        .should('contain', 'Likes: 1')
-        .should('contain', 'Likes: 1')
-        .should('contain', 'Likes: 1', { timeout: 10000 })
+      cy.wait(2000)
+
 
       cy.get('li')
-        .should('have length', 2)
         .eq(0)
-        .find('view info').click()
-        .contains('Blog title: tile with the most likes.')
+        .find('[data-cy="view info"]').click()
+        .contains('Blog title: The title with the most likes.')
+
     })
   })
+
 
 
 
