@@ -127,11 +127,11 @@ const App = () => {
       </div>
       <div >
         <h2>blogs</h2>
-        <ul data-cy="blogs">
+        <ul >
           {[...blogs]
             .sort((a, b) => b.likes - a.likes)
             .map((blog) => (
-              <li key={blog.id}>
+              <li data-cy="blogs" key={blog.id}>
                 <Blog
                   blog={blog}
                   blogs={blogs}

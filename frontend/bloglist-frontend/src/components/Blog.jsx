@@ -16,6 +16,7 @@ const Blog = ({ blog, blogs, setBlogs, handleRedMessage, redMessage }) => {
       const user = JSON.parse(localStorage.getItem('loggedBlogsAppUser'))
       const userToken = await user.token
       const updatedBlog = { ...blog, likes: blog.likes + 1 }
+      await updatedBlog
       await blogService.update(blog.id, updatedBlog, userToken)
       console.log('The user in the handle like function ', userToken)
       const updatedBlogs = await blogService.getAll(updatedBlog)
@@ -93,7 +94,7 @@ const Blog = ({ blog, blogs, setBlogs, handleRedMessage, redMessage }) => {
         <p>
           Author: {blog.author}
         </p>
-        <p>
+        <p data-cy="likesCount">
           Likes: {blog.likes}
         </p>
         <p>
