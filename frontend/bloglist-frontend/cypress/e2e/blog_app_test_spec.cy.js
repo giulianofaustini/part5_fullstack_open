@@ -126,12 +126,10 @@ describe('Blog app', function() {
       cy.visit('http://localhost:5173')
     })
 
-    it('Create blogs', function () {
+    it('Create blogs and Like the blog to update the like state ', function () {
       cy.get('[data-cy="username"]').type('gili')
       cy.get('[data-cy="password"]').type('salainen')
       cy.get('[data-cy="login"]').click()
-
-      // Save user data in local storage
       cy.window().its('localStorage').invoke('setItem', 'loggedBlogappUser', JSON.stringify({ username: 'gili' }))
 
       cy.get('[data-cy="clickForNewBlog"]').click()

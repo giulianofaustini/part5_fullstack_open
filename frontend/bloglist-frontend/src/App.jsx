@@ -139,6 +139,7 @@ const App = () => {
                   handleRedMessage={handleRedMessage}
                   redMessage={redMessage}
                   setRedMessage={setRedMessage}
+                  user={user}
                 />
               </li>
             ))}

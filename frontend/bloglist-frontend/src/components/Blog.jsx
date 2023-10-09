@@ -3,11 +3,12 @@ import React  from 'react'
 import blogService from '../services/blogs'
 import DisplayRedMessage from './DisplayRedMessage'
 
-const Blog = ({ blog, blogs, setBlogs, handleRedMessage, redMessage }) => {
+const Blog = ({ blog, blogs, setBlogs, handleRedMessage, redMessage , user }) => {
   const [see, setSee] = useState(false)
 
   const hideBlogInfo = { display: see ? 'none' : '' }
   const showBlogInfo = { display: see ? '' : 'none' }
+
 
   // const uniqueId = `blog-item-${blog.id}`
 
@@ -30,9 +31,6 @@ const Blog = ({ blog, blogs, setBlogs, handleRedMessage, redMessage }) => {
   const handleDelete = async () => {
     if (window.confirm(`Remove blog "${blog.title}" by ${blog.author}?`)) {
       try {
-        const user = JSON.parse(localStorage.getItem('loggedBlogsAppUser'))
-        //console.log('the user: ', user)
-
         await blogService.deleteBlog(blog.id)
         const updatedBlogs = blogs.filter((b) => b.id !== blog.id)
         const message = `Blog "${blog.title}" by ${blog.author} has been deleted.`
@@ -55,21 +53,21 @@ const Blog = ({ blog, blogs, setBlogs, handleRedMessage, redMessage }) => {
     borderRadius: 3,
   }
 
-
-  const user = JSON.parse(localStorage.getItem('loggedBlogsAppUser'))
-
-  // console.log(user)
-  // console.log(user.name)
-  // console.log(blog)
-
-  const deleteButtonToShow = user &&  user.username && user.name !== blog.user.name ? null :
-    (<button
-      data-cy="deleteBlog"
-      onClick={handleDelete}
-      style={{ backgroundColor: 'blue', color: 'whitesmoke' }}
-    >
+  const deleteButtonToShow =
+    user.name === blog.user.name ?
+      (<button
+        data-cy="deleteBlog"
+        onClick={handleDelete}
+        style={{ backgroundColor: 'blue', color: 'whitesmoke' }}
+      >
     delete
-    </button>)
+      </button>) : null
+
+
+  console.log(user)
+  console.log(user.name)
+  console.log(blog)
+
 
 
   return (
